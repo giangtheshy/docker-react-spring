@@ -1,0 +1,60 @@
+@import "~scss/config";
+.films-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 1rem;
+}
+@media only screen and (min-width: 768px) {
+  .films-container {
+    &.column {
+      display: flex;
+      flex-direction: column;
+      height: auto;
+      overflow: auto;
+      padding-top: 1.5rem;
+
+      .film-center {
+        @include flex(row);
+        margin: 0.5rem 0;
+
+        .img {
+          width: 35%;
+          margin-right: 0.5rem;
+          &-center {
+            height: 6rem;
+            img {
+              height: 6rem;
+              object-fit: cover;
+            }
+            .watched {
+              padding: 0.5rem;
+              font-size: 0.7rem;
+            }
+          }
+          .evaluate {
+            left: 30%;
+            display: none;
+          }
+        }
+        &__details {
+          width: 65%;
+          .stars {
+            margin: 0;
+          }
+          .title {
+            white-space: normal;
+            font-size: 1rem;
+            line-height: 1.4rem;
+            max-height: 4rem;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+          }
+          p {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

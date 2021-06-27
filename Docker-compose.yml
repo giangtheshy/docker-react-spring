@@ -1,0 +1,56 @@
+version: '3.5'
+services:
+  app:
+    restart: always
+    build:
+      context: ./phim_pro
+      dockerfile: Dockerfile
+    image: app-server
+    container_name: app-server
+    volumes:
+      - ./phim_pro:/app
+    ports:
+      - "8080"
+    command: mvn clean spring-boot:run
+    networks:
+      - phim_pro
+  client:
+    image: frontend
+    container_name: frontend
+    restart: always
+    build:
+      context: ./phim_pro_client
+      dockerfile: Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./phim_pro_client:/app
+    # ports:
+    #   - 3000:3000
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    depends_on:
+      - app
+    networks:
+      - phim_pro
+  nginx:
+    image: nginx
+    container_name: nginx
+    restart: always
+    depends_on:
+      - app
+      - client
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+      network: host
+      args:
+        - CERTBOT_EMAIL=nhockrong98@gmail.com
+        - DOMAIN_LIST=library-mern.tk
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - phim_pro
+networks:
+  phim_pro:
+    driver: bridge
