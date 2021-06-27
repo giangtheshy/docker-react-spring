@@ -1,7 +1,7 @@
 FROM nginx:stable
 
 ARG CERTBOT_EMAIL=nhockrong98@gmail.com
-ARG DOMAIN_LIST=library-mern.tk
+ARG DOMAIN_LIST=phim-pro.cf
 
 RUN  apt-get update \
   && apt-get install -y cron certbot python-certbot-nginx bash wget \
