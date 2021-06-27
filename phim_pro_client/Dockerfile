@@ -1,4 +1,4 @@
-FROM node:14-alpine3.10 as builder
+FROM node:14.17.1-alpine3.11 as builder
 
 LABEL version="1.0"
 LABEL description="React Front End Phim pro"
